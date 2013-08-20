@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Local Storage</title>
+<style>
+body { font-family:"Microsoft YaHei";}
+ul,li { list-style:none;}
+legend { font-weight:bold;}
+.title { text-align:left; clear:both; cursor:pointer;}
+.title strong { font-weight:bold; color:#F60;}
+.title strong:hover { color:#C00;}
+.title span { float:right; color:#777;}
+.desc { font-size:14px; padding-right:20px; margin:8px 0;}
+.desc a { color:#555; text-decoration:none;}
+.desc a:hover { color:#333;}
+#Stitle { width:320px; margin:2px 0;}
+#Surl { width:320px; margin:2px 0;}
+#Sdesc { vertical-align:top; margin:2px 0;}
+</style>
+</head>
+
+<body>
+<fieldset>
+<legend>这货可以用来本地保存好的网址</legend>
+标题：<input type="text" id="Stitle" value="" required><br>
+网址：<input type="url" id="Surl" value="" required><br>
+简介：<textarea id="Sdesc" cols="50" rows="6" ></textarea><br>
+功能：<input type="button" value="添加此项" onClick="saveData();"><input type="button" value="删除全部" onClick="deleteAllData();">
+</fieldset>
+<ul id="ulData">
+	<li><details><summary class="title"><strong>Qrobot是什么，能做什么？</strong><span>Tue Sep 06 2011 13:04:23</span></summary><p class="desc"><a href="#" target="_blank">能够人机对话的机器人！语音点歌音乐伴舞、算星座运程、播新闻、报天气、查股票、儿童教育、时尚娱乐等等N多应用还可在线自动升级扩充！中科院与腾讯合作创造。能够人机对话的机器人！语音点歌音乐伴舞、算星座运程、播新闻、报天气、查股票、儿童教育、时尚娱乐等等N多应用还可在线自动升级扩充！中科院与腾讯合作创造。</a></p></li>
+</ul>
+
+<script>
+if ( ! window.localStorage ){ alert ("请使用最新版IE9、Firefox、Opera、Safari或Chrome浏览器！");}
+
+	var ulData = null;
+	var db = openDatabase('mydb','1.0','Test DB',2*1024*1024);
+	function init(){
+		ulData = document.getElementById("ulData");
+		showAllData();
+	}
+	function removeAllData(){
+		for ( var i= ulData.childNodes.length-1; i>=0; i--){
+			ulData.removeChild(ulData.childNodes[i]);
+		}
+	}
+	function deleteAllData(){
+		db.transaction(function(tx){
+			tx.executeSql('DELETE FROM infoData');
+		});
+		removeAllData();
+	}
+	function showData(row){
+		var li = document.createElement('li');
+		var t = new Date();
+		t.setTime(row.time);
+		li.innerHTML = "<details><summary class='title'><strong>" +row.name+"</strong><span>"+t.toDateString() + "," + t.toLocaleTimeString()+"</span></summary><p class='desc'><a href='"+row.url+"' target='_blank'>"+ row.message + "</a></p>";
+		ulData.appendChild(li);
+	}
+	function showAllData(){
+		db.transaction(function(tx){
+			tx.executeSql('CREATE TABLE IF NOT EXISTS infoData(name TEXT,url TEXT,message TEXT,time INTEGER)',[]);
+			tx.executeSql('SELECT * FROM infoData',[],function(tx,rs){
+				removeAllData();
+				for(var i =0; i<rs.rows.length; i++){
+					showData(rs.rows.item(i));
+				}
+			});
+		});
+	}
+	function addData(name,url,message,time){
+		db.transaction(function(tx){
+			tx.executeSql('INSERT INTO infoData VALUES(?,?,?,?)',[name,url,message,time],function(tx,rs){
+//				alert("saved succeed");
+			});
+		});
+	}
+	function saveData(){
+		var Stitle = document.getElementById('Stitle').value;
+		var Surl = document.getElementById('Surl').value;
+		var Sdesc = document.getElementById('Sdesc').value;
+		var Stime = new Date().getTime();
+		addData(Stitle,Surl,Sdesc,Stime);
+		showAllData();
+	}
+	init();
+	
+
+</script>
+</body>
+</html>
