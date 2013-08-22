@@ -22,7 +22,7 @@ legend { font-weight:bold;}
 
 <body>
 <fieldset>
-<legend>这货可以用来本地保存好的网址</legend>
+<legend>这货可以用于本地保存好的网址</legend>
 标题：<input type="text" id="Stitle" value="" required><br>
 网址：<input type="url" id="Surl" value="" required><br>
 简介：<textarea id="Sdesc" cols="50" rows="6" ></textarea><br>
@@ -73,7 +73,6 @@ if ( ! window.localStorage ){ alert ("请使用最新版IE9、Firefox、Opera、
 	function addData(name,url,message,time){
 		db.transaction(function(tx){
 			tx.executeSql('INSERT INTO infoData VALUES(?,?,?,?)',[name,url,message,time],function(tx,rs){
-//				alert("saved succeed");
 			});
 		});
 	}

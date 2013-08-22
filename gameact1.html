@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="Copyright" content="Tencent" />
+		<meta name="Description" content="{desc}" />
+		<meta name="Keywords" content="会员,QQ会员,QQ特权,QQ生活特权,QQ游戏特权,QQ购物特权" />
+		<title>{title}</title>
+		<!--[if IE 6]><script type="text/javascript">try{document.execCommand("BackgroundImageCache",false,true);}catch(e){}</script><![endif]-->
+		<link rel="stylesheet" rev="stylesheet" href="http://imgcache.gtimg.cn/vipstyle/global/event/v2/css/global_v2.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="http://imgcache.qq.com/vipstyle/game/portal/mod_gst/css/mod_gst.css" media="screen" />
+		{style}
+		<script type="text/javascript" src="http://imgcache.gtimg.cn/c/=/club/qv/pkg/qv_1.x.x.js,/clubact/premin/jquery.webStorage.min.js,/clubact/common/oz.js,/clubact/common/aid.js,/clubact/common/mustache.js,/clubact/common/nav/youxi_nav.js" charset="utf-8"></script>
+	</head>
+	<body params="{g_variables}">
+		<script type="text/javascript">write_global_nav()</script>
+		<div class="act_wrapper">
+			<!-- 小黄条 开始 -->
+			<div class="bulletin" id="container" style="display:none;"></div>
+			<!-- 小黄条 结束 -->  
+			{body}
+		</div>
+
+		<div class="mod_copyright"><script type="text/javascript">write_global_footer();</script></div>
+		<!-- 蒙板层 开始 -->
+		<div class="mod_pop_mask" style="display:none;"></div>
+		<!-- 蒙板层 结束 -->
+<!--
+		<script type="text/javascript" src="http://imgcache.qq.com/ac/club/qqvip/v2.0/qqviplib_2.0.0.js" charset="gbk"></script>
+		<script type="text/javascript" src="http://imgcache.qq.com/ACT/vip_act/common/vip.act.biz.js" charset="gb2312"></script>
+		<script type="text/javascript" src="http://youxi.vip.qq.com/common/js/lib/zero.min-3.1.1.js?v=3.1.1"></script>
+		<script type="text/javascript">
+		;(function($){
+			Page = qv.zero.extend(qv.zero.AbstractPage, {
+				vipmp : 'MA20130313104927046',//开通会员的MP单
+				aid : '',//开通会员的AID
+			   ozid : '25591',//buffet ID
+			   userJsonID : 11488, //静如处子的Json文件
+			   hasLotCode : false,
+			   loadExtHandler : false,
+				subscribeID   :'',
+			});
+			win
+			dow.page = new Page();
+		})(jQuery);
+		</script>
+-->
+	</body>
+</html>
